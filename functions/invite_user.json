@@ -1,0 +1,16 @@
+{
+  "name": "invite_user",
+  "description": "Invite another user.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "first_name": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      }
+    },
+    "required": ["first_name", "email"]
+  }
+}

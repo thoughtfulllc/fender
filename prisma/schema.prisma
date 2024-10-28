@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Goal {
+  id             String    @id @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  goal           String
+  timeframe      String
+  timeframe_date DateTime  @db.Date
+  created_at     DateTime  @default(now()) @db.Timestamp(6)
+  user_id        String?   @db.VarChar(16)
+  succeeded      Boolean?
+  Checkin        Checkin[]
+  User           User?     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "goals_user_id_fkey")
+}
+
+model User {
+  id               String         @id @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  first_name       String
+  last_name        String?
+  created_at       DateTime       @default(now()) @db.Timestamp(6)
+  utc_offset       Int            @default(-4) @db.SmallInt
+  default_medium   String?        @default("sms")
+  discovery_method String?
+  EmailAddress     EmailAddress[]
+  Goal             Goal[]
+  PhoneNumber      PhoneNumber[]
+  Schedule         Schedule[]
+}
+
+model Checkin {
+  id         String   @id @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  goal_id    String   @db.VarChar(16)
+  timestamp  DateTime @db.Timestamp(6)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  type       String
+  Goal       Goal     @relation(fields: [goal_id], references: [id], onDelete: Cascade)
+}
+
+model Schedule {
+  id         String   @id(map: "Schedule_table_pkey") @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  timeframe  String
+  type       String
+  user_id    String   @db.VarChar(16)
+  user_time  DateTime @db.Time(6)
+  is_enabled Boolean  @default(true)
+  utc_time   DateTime @db.Time(6)
+  User       User     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "untitled_table_user_id_fkey")
+
+  @@index([user_id, timeframe, type])
+}
+
+model PhoneNumber {
+  id        String  @id @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  phone     String  @unique
+  thread_id String  @unique
+  user_id   String? @db.VarChar(16)
+  User      User?   @relation(fields: [user_id], references: [id])
+}
+
+model EmailAddress {
+  id              String  @id @default(dbgenerated("nanoid()")) @db.VarChar(16)
+  email           String  @unique
+  thread_id       String  @unique
+  user_id         String? @db.VarChar(16)
+  smtp_message_id String?
+  User            User?   @relation(fields: [user_id], references: [id])
+}

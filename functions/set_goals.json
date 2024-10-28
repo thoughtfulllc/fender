@@ -1,0 +1,25 @@
+{
+  "name": "set_goals",
+  "description": "Set a list of goals for a specific timeframe.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "timeframe": {
+        "type": "string",
+        "enum": ["day", "week", "month", "quarter", "year"]
+      },
+      "timeframe_date": {
+        "type": "string",
+        "description": "The start date of the timeframe formatted as YYYY-MM-DD. For example, Q1 of 2024 would be 2024-01-01."
+      },
+      "goals": {
+        "type": "array",
+        "description": "The list of goals.",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": ["timeframe", "timeframe_date"]
+  }
+}

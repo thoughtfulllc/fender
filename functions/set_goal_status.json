@@ -1,0 +1,17 @@
+{
+  "name": "set_goal_status",
+  "description": "Mark a goal as succeeded or failed.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "goal_id": {
+        "type": "string",
+        "description": "The ID of the goal. This is the ID can be found using the get_goals function if needed."
+      },
+      "succeeded": {
+        "type": "boolean"
+      }
+    },
+    "required": ["goal_id", "succeeded"]
+  }
+}

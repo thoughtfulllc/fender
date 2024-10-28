@@ -1,0 +1,18 @@
+{
+  "name": "get_goals",
+  "description": "Get goals for a specific timeframe.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "timeframe": {
+        "type": "string",
+        "enum": ["day", "week", "month", "quarter", "year"]
+      },
+      "timeframe_date": {
+        "type": "string",
+        "description": "The start date of the timeframe formatted as YYYY-MM-DD. For example, Q1 of 2024 would be 2024-01-01."
+      }
+    },
+    "required": ["timeframe", "timeframe_date"]
+  }
+}

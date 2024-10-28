@@ -1,0 +1,20 @@
+{
+  "name": "register_user",
+  "description": "Register a user.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "first_name": {
+        "type": "string"
+      },
+      "last_name": {
+        "type": "string"
+      },
+      "utc_offset": {
+        "type": "number",
+        "description": "Timezone offset in hours from UTC. For example, -4 for eastern time."
+      }
+    },
+    "required": ["first_name", "last_name", "utc_offset"]
+  }
+}

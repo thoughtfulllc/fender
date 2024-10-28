@@ -1,0 +1,28 @@
+{
+  "name": "fender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "serve": "tsx -r dotenv/config server",
+    "cron": "tsx -r dotenv/config cron",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "pnpm prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@prisma/client": "5.14.0",
+    "cron": "^3.1.7",
+    "dayjs": "^1.11.11",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.27.0",
+    "openai": "^4.47.2",
+    "postmark": "^4.0.2",
+    "tsx": "^4.11.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  }
+}
